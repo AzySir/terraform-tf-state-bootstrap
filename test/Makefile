@@ -1,7 +1,7 @@
 
 APP:=myapp
 ORG:=myorg
-REMOTE_BACKEND:=false
+REMOTE_BACKEND:=true
 
 fmt:
 	terraform fmt -recursive

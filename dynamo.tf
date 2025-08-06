@@ -1,5 +1,6 @@
 # DynamoDB Table for Terraform State Locking
 resource "aws_dynamodb_table" "this" {
+  count        = var.use_lockfile ? 0 : 1
   name         = "${var.org}-${var.app}-${var.env}-${var.region}-tf-state-lock"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
@@ -21,5 +22,5 @@ resource "aws_dynamodb_table" "this" {
 }
 
 output "dynamodb_table_name" {
-  value = aws_dynamodb_table.this.name
+  value = var.use_lockfile ? null : aws_dynamodb_table.this[0].name
 }
